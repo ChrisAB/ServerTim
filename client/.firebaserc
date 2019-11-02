@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "servertim-a62cc": {
+      "hosting": {
+        "client": [
+          "servertim-a62cc"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+<ng-container>
+  <h1>Home</h1>
+
+  <div *ngIf="loading; else notLoading">
+    <mat-progress-spinner
+      class="example-margin"
+      color="primary"
+      mode="indeterminate"
+    >
+    </mat-progress-spinner>
+  </div>
+
+  <ng-template #notLoading>
+    <div *ngIf="auth.user$ | async as user; else login">
+      <pre>
+          {{ user | json }}
+      </pre>
+      <hr />
+      <button mat-stroked-button (click)="auth.signOut()">Sign Out</button>
+    </div>
+
+    <ng-template #login>
+      <button mat-stroked-button (click)="googleSignIn()">
+        Login with Google
+      </button>
+    </ng-template>
+  </ng-template>
+</ng-container>
