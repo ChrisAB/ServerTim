@@ -1,3 +1,5 @@
+import 'firebase/firestore';
+
 import {NgModule} from '@angular/core';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuth, AngularFireAuthModule} from '@angular/fire/auth';
@@ -7,6 +9,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import * as firebase from 'firebase';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
