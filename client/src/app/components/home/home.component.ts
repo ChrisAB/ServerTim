@@ -1,6 +1,4 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {AuthService} from 'src/app/services/auth.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -8,20 +6,8 @@ import {AuthService} from 'src/app/services/auth.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  returnUrl: string;
-  loading = false;
-  constructor(
-      public auth: AuthService, private route: ActivatedRoute,
-      private router: Router) {}
+  title = 'Home';
+  constructor() {}
 
-  ngOnInit() {
-    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
-  }
-
-  async googleSignIn() {
-    this.loading = true;
-    await this.auth.googleSignIn();
-    this.loading = false;
-    this.router.navigateByUrl(this.returnUrl);
-  }
+  ngOnInit() {}
 }

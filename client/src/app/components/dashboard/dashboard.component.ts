@@ -1,4 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ServerService } from '../../services/server.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,7 +8,16 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  constructor() {}
+  title = 'Dashboard';
 
-  ngOnInit() {}
+  constructor(
+    private auth: AuthService,
+    private serverService: ServerService
+  ) {}
+
+  ngOnInit() {
+    this.serverService.getServers().subscribe(servers => {
+      console.log(servers);
+    });
+  }
 }
