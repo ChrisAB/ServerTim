@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ServerCardComponent implements OnInit {
   @Input() address: string;
   @Input() displayName: string;
+  @Input() uid: string;
   constructor() {}
 
   ngOnInit() {}

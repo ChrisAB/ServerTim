@@ -1,4 +1,10 @@
-<mat-toolbar class="toolbar">
+<mat-toolbar color="primary">
+  <div *ngIf="auth.user$ | async as user; else notLoggedIn">
+    <button mat-flat-button (click)="targetSideNav.toggle()" color="primary">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+
   <span>{{ title }}</span>
   <span class="spacer"></span>
   <div *ngIf="loading; else notLoading" class="auth-button">
@@ -14,13 +20,13 @@
 
   <ng-template #notLoading class="auth-button">
     <div *ngIf="auth.user$ | async as user; else login">
-      <button mat-stroked-button (click)="auth.signOut()">
+      <button mat-raised-button (click)="auth.signOut()" color="primary">
         Sign Out
       </button>
     </div>
 
     <ng-template #login>
-      <button mat-stroked-button (click)="googleSignIn()">
+      <button mat-raised-button (click)="googleSignIn()" color="primary">
         Login with Google
       </button>
     </ng-template>

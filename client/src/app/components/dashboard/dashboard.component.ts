@@ -15,9 +15,5 @@ export class DashboardComponent implements OnInit {
     private serverService: ServerService
   ) {}
 
-  ngOnInit() {
-    this.serverService.getServers().subscribe(servers => {
-      console.log(servers);
-    });
-  }
+  ngOnInit() {}
 }

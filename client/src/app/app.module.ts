@@ -23,6 +23,8 @@ import { HomeComponent } from './components/home/home.component';
 import { ServerCardComponent } from './components/server-card/server-card.component';
 import { ServerDetailComponent } from './components/server-detail/server-detail.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { MatIconModule } from '@angular/material/icon';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   imports: [
@@ -37,7 +39,8 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     MatToolbarModule,
     MatSidenavModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
+    MatIconModule
   ],
   declarations: [
     AppComponent,
@@ -45,7 +48,8 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     DashboardComponent,
     ServerDetailComponent,
     ServerCardComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    PageNotFoundComponent
   ],
   providers: [AngularFirestore],
   bootstrap: [AppComponent]
