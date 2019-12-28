@@ -10,23 +10,29 @@ import { MatCard, MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatListModule } from '@angular/material/list';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 import * as firebase from 'firebase';
 
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DashboardComponent, DialogOverviewExampleDialog } from './components/dashboard/dashboard.component';
 import { HomeComponent } from './components/home/home.component';
 import { ServerCardComponent } from './components/server-card/server-card.component';
 import { ServerDetailComponent } from './components/server-detail/server-detail.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { MatIconModule } from '@angular/material/icon';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { AddServerComponent } from './components/add-server/add-server.component';
 
 @NgModule({
+  entryComponents: [ DialogOverviewExampleDialog],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -40,7 +46,11 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     MatSidenavModule,
     MatCardModule,
     MatListModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule
   ],
   declarations: [
     AppComponent,
@@ -49,7 +59,9 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     ServerDetailComponent,
     ServerCardComponent,
     ToolbarComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    AddServerComponent,
+    DialogOverviewExampleDialog
   ],
   providers: [AngularFirestore],
   bootstrap: [AppComponent]
