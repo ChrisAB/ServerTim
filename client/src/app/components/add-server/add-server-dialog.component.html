@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Please enter details about your server</h1>
+<div mat-dialog-content>
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Server display name" [(ngModel)]="data.name" />
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input matInput placeholder="IP address" [(ngModel)]="data.ip" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions class="full-width">
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-raised-button [mat-dialog-close]="data" color="primary">
+    OK
+  </button>
+</div>

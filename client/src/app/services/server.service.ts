@@ -27,17 +27,17 @@ export class ServerService {
   }
 
   addServerToUser(userData, serverData) {
-    let uid = this.afs.createId();
+    const serverUid = this.afs.createId();
     const serverRef: AngularFirestoreDocument<Server> = this.afs.doc(
-      `servers/${uid}`
+      `servers/${serverUid}`
     );
     const data = {
-      uid: uid,
+      uid: serverUid,
       userUid: userData.uid,
       address: serverData.ip,
-      name: serverData.name
+      displayName: serverData.name
     };
-    
+
     return serverRef.set(data, { merge: true });
   }
 

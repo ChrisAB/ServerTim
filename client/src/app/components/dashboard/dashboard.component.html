@@ -6,13 +6,23 @@
       <a mat-list-item routerLink="/dashboard">Dashboard</a>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content layout="column" flex class="md-padding">
-    <app-server-card
-      *ngFor="let server of serverService.servers$ | async"
-      [displayName]="server.displayName"
-      [address]="server.address"
-      [uid]="server.uid"
-    ></app-server-card>
-    <button mat-raised-button (click)="addServer()" color="primary">Add Server</button>
+  <mat-sidenav-content class="md-padding">
+    <button
+      id="add-button"
+      mat-raised-button
+      (click)="addServer()"
+      color="primary"
+      class="mat-elevation-z6"
+    >
+      Add Server
+    </button>
+    <div id="card-container">
+      <app-server-card
+        *ngFor="let server of serverService.servers$ | async"
+        [displayName]="server.displayName"
+        [address]="server.address"
+        [uid]="server.uid"
+      ></app-server-card>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
