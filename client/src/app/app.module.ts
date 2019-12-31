@@ -1,5 +1,6 @@
 import 'firebase/firestore';
 
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -49,7 +50,8 @@ import { AddServerDialogComponent } from './components/add-server/add-server-dia
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    FlexLayoutModule
   ],
   declarations: [
     AppComponent,

@@ -44,4 +44,11 @@ export class ServerService {
   getServers(): Observable<Server[]> {
     return this.servers$;
   }
+
+  deleteServer(serverUid) {
+    const serverRef: AngularFirestoreDocument<Server> = this.afs.doc(
+      `servers/${serverUid}`
+    );
+    serverRef.delete();
+  }
 }

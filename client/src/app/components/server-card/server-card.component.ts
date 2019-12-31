@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ServerService } from 'src/app/services/server.service';
 
 @Component({
   selector: 'app-server-card',
@@ -9,7 +10,11 @@ export class ServerCardComponent implements OnInit {
   @Input() address: string;
   @Input() displayName: string;
   @Input() uid: string;
-  constructor() {}
+  constructor(private serverService: ServerService) {}
 
   ngOnInit() {}
+
+  deleteServer() {
+    this.serverService.deleteServer(this.uid);
+  }
 }
