@@ -11,10 +11,10 @@ import { Server } from './server.model';
 
 @Injectable({ providedIn: 'root' })
 export class ServerService {
-  servers$: Observable<any[]>;
+  userServers$: Observable<any[]>;
 
   constructor(private afs: AngularFirestore, private auth: AuthService) {
-    this.servers$ = auth.user$.pipe(
+    this.userServers$ = auth.user$.pipe(
       switchMap(user =>
         this.afs
           .collection<Server>('servers', ref =>
@@ -41,8 +41,12 @@ export class ServerService {
     return serverRef.set(data, { merge: true });
   }
 
-  getServers(): Observable<Server[]> {
-    return this.servers$;
+  getServer(serverUid: string) {
+    if (serverUid) {
+      return this.afs.doc<Server>(`servers/${serverUid}`).valueChanges();
+    } else {
+      return of(null);
+    }
   }
 
   deleteServer(serverUid) {

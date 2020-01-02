@@ -2,3 +2,6 @@ mat-card {
   margin: 1rem;
   width: 250px;
 }
+mat-card-content {
+  padding: 16px;
+}

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ServerService } from '../../services/server.service';
 import { AuthService } from '../../services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
-import { AddServerDialogComponent } from '../add-server/add-server-dialog.component';
+import { AddServerDialogComponent } from '../add-server-dialog/add-server-dialog.component';
 
 @Component({
   selector: 'app-dashboard',

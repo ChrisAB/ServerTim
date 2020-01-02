@@ -18,7 +18,7 @@
     </button>
     <div id="card-container">
       <app-server-card
-        *ngFor="let server of serverService.servers$ | async"
+        *ngFor="let server of serverService.userServers$ | async"
         [displayName]="server.displayName"
         [address]="server.address"
         [uid]="server.uid"

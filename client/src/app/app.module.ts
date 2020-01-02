@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -30,7 +31,7 @@ import { ServerDetailComponent } from './components/server-detail/server-detail.
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { MatIconModule } from '@angular/material/icon';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { AddServerDialogComponent } from './components/add-server/add-server-dialog.component';
+import { AddServerDialogComponent } from './components/add-server-dialog/add-server-dialog.component';
 
 @NgModule({
   entryComponents: [AddServerDialogComponent],
@@ -41,6 +42,7 @@ import { AddServerDialogComponent } from './components/add-server/add-server-dia
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
+    AngularFireStorageModule,
     MatButtonModule,
     MatProgressSpinnerModule,
     MatToolbarModule,

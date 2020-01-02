@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription, Observable, concat } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { Server } from 'src/app/services/server.model';
-import { switchMap, map } from 'rxjs/operators';
+import { switchMap, map, finalize, filter, take } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { ServerService } from 'src/app/services/server.service';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { FileService } from 'src/app/services/file.service';
 
 @Component({
   selector: 'app-server-detail',
@@ -17,13 +18,19 @@ export class ServerDetailComponent implements OnInit, OnDestroy {
   private routeSubscription: Subscription;
   title$: Observable<string>;
   server$: Observable<Server>;
+  private ref;
+  private task;
+  private uploadProgress;
+  private downloadUrl: Observable<string | null>;
 
   constructor(
     private route: ActivatedRoute,
     private afs: AngularFirestore,
-    private auth: AuthService
+    private afStorage: AngularFireStorage,
+    private auth: AuthService,
+    private fileService: FileService
   ) {
-    this.server$ = auth.user$.pipe(
+    this.server$ = this.auth.user$.pipe(
       switchMap(user =>
         this.afs.doc<Server>('servers/' + this.serverUid).valueChanges()
       )
@@ -41,5 +48,38 @@ export class ServerDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.routeSubscription.unsubscribe();
+  }
+
+  upload(event) {
+    const fileId = this.afs.createId();
+    this.ref = this.afStorage.ref(fileId);
+    this.task = this.ref.put(event.target.files[0]);
+    this.uploadProgress = this.task.percentageChanges();
+    this.task
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          this.downloadUrl = this.ref.getDownloadURL();
+          this.downloadUrl
+            .pipe(
+              filter(url => url !== null),
+              take(1)
+            )
+            .subscribe(url => {
+              this.auth.user$
+                .pipe(
+                  filter(userData => userData !== null),
+                  take(1)
+                )
+                .subscribe(userData => {
+                  this.fileService.addFileToServer(userData, this.serverUid, {
+                    name: event.target.files[0].name,
+                    downloadUrl: url
+                  });
+                });
+            });
+        })
+      )
+      .subscribe();
   }
 }

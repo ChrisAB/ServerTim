@@ -8,6 +8,13 @@
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content layout="column" flex class="md-padding">
+      <label for="file">File:</label>
+      <h2 class="mat-display-2">File:</h2>
+      <input type="file" (change)="upload($event)" />
+      <progress max="100" [value]="uploadProgress | async"></progress>
+      <div class="result" *ngIf="downloadUrl | async; let uploadSrc">
+        <a [href]="uploadSrc">You just uploaded this file!</a>
+      </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
