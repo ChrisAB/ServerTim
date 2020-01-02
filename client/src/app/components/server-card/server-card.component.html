@@ -14,7 +14,13 @@
       Details
     </button>
     <div fxFlex></div>
-    <button mat-icon-button (click)="deleteServer()" color="primary">
+    <button
+      mat-icon-button
+      matTooltip="Delete server"
+      matTooltipPosition="below"
+      (click)="deleteServer()"
+      color="primary"
+    >
       <mat-icon>delete</mat-icon>
     </button>
   </mat-card-actions>

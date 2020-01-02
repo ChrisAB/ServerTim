@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ServerService } from 'src/app/services/server.service';
-
+import { TooltipPosition } from '@angular/material/tooltip';
 @Component({
   selector: 'app-server-card',
   templateUrl: './server-card.component.html',
