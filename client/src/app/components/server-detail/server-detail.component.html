@@ -8,12 +8,48 @@
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content layout="column" flex class="md-padding">
-      <label for="file">File:</label>
-      <h2 class="mat-display-2">File:</h2>
-      <input type="file" (change)="upload($event)" />
-      <progress max="100" [value]="uploadProgress | async"></progress>
-      <div class="result" *ngIf="downloadUrl | async; let uploadSrc">
-        <a [href]="uploadSrc">You just uploaded this file!</a>
+      <div class="some-page-wrapper">
+        <div class="row">
+          <div class="column">
+            <h2 mat-heading-2 class="details-heading">Server Information</h2>
+          </div>
+          <mat-divider [vertical]="true"></mat-divider>
+          <div class="column">
+            <div>
+              <h2 mat-heading-2 class="details-heading">Files</h2>
+              <div>
+                <input
+                  id="fileUpload"
+                  type="file"
+                  (change)="selectFile($event)"
+                />
+                <button
+                  mat-stroked-button
+                  id="uploadButton"
+                  [disabled]="!fileSelected"
+                  (click)="uploadFile()"
+                >
+                  Upload
+                </button>
+              </div>
+              <progress max="100" [value]="uploadProgress | async"></progress>
+              <div class="result" *ngIf="downloadUrl | async; else notUploaded">
+                <a [href]="downloadUrl">You just uploaded this file!</a>
+              </div>
+              <ng-template #notUploaded><br /></ng-template>
+              <br />
+              <mat-divider></mat-divider>
+              <div id="server-files">
+                <mat-list>
+                  <mat-list-item *ngFor="let file of serverFiles$ | async">
+                    <mat-icon matListIcon>description</mat-icon>
+                    <a matLine href="{{ file.downloadUrl }}">{{ file.name }}</a>
+                  </mat-list-item>
+                </mat-list>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>

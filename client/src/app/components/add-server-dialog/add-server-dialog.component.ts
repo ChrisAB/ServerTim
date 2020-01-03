@@ -1,7 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ServerService } from '../../services/server.service';
-import { AuthService } from '../../services/auth.service';
 
 export interface DialogData {
   ip: string;

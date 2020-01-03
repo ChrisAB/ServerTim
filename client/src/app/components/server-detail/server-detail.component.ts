@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription, Observable, concat } from 'rxjs';
+import { Subscription, Observable, concat, of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { Server } from 'src/app/services/server.model';
@@ -22,6 +22,9 @@ export class ServerDetailComponent implements OnInit, OnDestroy {
   private task;
   private uploadProgress;
   private downloadUrl: Observable<string | null>;
+  private serverFiles$: Observable<any[]>;
+  private selectedFile;
+  fileSelected: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,11 +41,13 @@ export class ServerDetailComponent implements OnInit, OnDestroy {
     this.title$ = this.server$.pipe(
       map(server => `${server.displayName}@${server.address}`)
     );
+    this.fileSelected = false;
   }
 
   ngOnInit() {
     this.routeSubscription = this.route.params.subscribe(params => {
       this.serverUid = params.id;
+      this.serverFiles$ = this.fileService.getServerFiles(this.serverUid);
     });
   }
 
@@ -50,10 +55,17 @@ export class ServerDetailComponent implements OnInit, OnDestroy {
     this.routeSubscription.unsubscribe();
   }
 
-  upload(event) {
+  selectFile(event) {
+    this.selectedFile = event.target.files[0];
+    this.fileSelected = true;
+    this.uploadProgress = of(null);
+    this.downloadUrl = of(null);
+  }
+
+  uploadFile() {
     const fileId = this.afs.createId();
     this.ref = this.afStorage.ref(fileId);
-    this.task = this.ref.put(event.target.files[0]);
+    this.task = this.ref.put(this.selectedFile);
     this.uploadProgress = this.task.percentageChanges();
     this.task
       .snapshotChanges()
@@ -73,7 +85,7 @@ export class ServerDetailComponent implements OnInit, OnDestroy {
                 )
                 .subscribe(userData => {
                   this.fileService.addFileToServer(userData, this.serverUid, {
-                    name: event.target.files[0].name,
+                    name: this.selectedFile.name,
                     downloadUrl: url
                   });
                 });

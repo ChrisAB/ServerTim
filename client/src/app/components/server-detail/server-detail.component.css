@@ -6,3 +6,38 @@ mat-sidenav,
 mat-sidenav-content {
   padding: 16px;
 }
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+  padding: 16px;
+}
+.some-page-wrapper {
+  margin: 15px;
+}
+@media screen and (min-width: 800px) {
+  .column {
+    flex: 1;
+  }
+}
+
+progress {
+  width: 100%;
+}
+
+#uploadButton {
+  float: right;
+  margin-bottom: 10px;
+}
+
+.details-heading {
+  margin-top: 0px;
+}

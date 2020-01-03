@@ -52,12 +52,14 @@ export class FileService {
     return this.userFiles$;
   }
 
-  getServerFiles(serverUid: string): Observable<File[]> {
-    return this.serverService.getServer(serverUid).pipe(
-      switchMap(server =>
+  getServerFiles(serverUid: string): Observable<any[]> {
+    return this.auth.user$.pipe(
+      switchMap(user =>
         this.afs
           .collection<File>('files', ref =>
-            ref.where('serverUid', '==', server.uid)
+            ref
+              .where('userUid', '==', user.uid)
+              .where('serverUid', '==', serverUid)
           )
           .valueChanges()
       ),
