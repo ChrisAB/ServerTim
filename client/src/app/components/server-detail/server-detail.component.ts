@@ -73,7 +73,7 @@ export class ServerDetailComponent implements OnInit, OnDestroy {
     for(let i=0;i<data.length;i++) {
       CPUData.push({y: data[i].CPU});
       GPUData.push({y: data[i].GPU});
-      DiskData.push({y: data[i].GPU});
+      DiskData.push({y: data[i].Disk});
     }
     this.displayChart(CPUData, "CPUchartContainer", "CPU Usage");
     this.displayChart(GPUData, "GPUchartContainer", "GPU Usage");
