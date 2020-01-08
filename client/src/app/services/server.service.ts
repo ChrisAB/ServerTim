@@ -6,14 +6,19 @@ import {
   AngularFirestoreDocument
 } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
-import { switchMap, catchError } from 'rxjs/operators';
+import { switchMap, catchError, mergeMap, take } from 'rxjs/operators';
 import { Server } from './server.model';
+import { FileService } from './file.service';
 
 @Injectable({ providedIn: 'root' })
 export class ServerService {
   userServers$: Observable<any[]>;
 
-  constructor(private afs: AngularFirestore, private auth: AuthService) {
+  constructor(
+    private afs: AngularFirestore,
+    private auth: AuthService,
+    private fileService: FileService
+  ) {
     this.userServers$ = auth.user$.pipe(
       switchMap(user =>
         this.afs
@@ -50,6 +55,16 @@ export class ServerService {
   }
 
   deleteServer(serverUid) {
+    this.fileService
+      .getServerFiles(serverUid)
+      .pipe(
+        take(1),
+        mergeMap(files => files.map(file => file.uid))
+      )
+      .subscribe(fileUid => {
+        this.fileService.deleteFile(fileUid);
+      });
+
     const serverRef: AngularFirestoreDocument<Server> = this.afs.doc(
       `servers/${serverUid}`
     );

@@ -13,13 +13,9 @@ import { ServerService } from './server.service';
   providedIn: 'root'
 })
 export class FileService {
-  userFiles$: Observable<any[]>;
+  userFiles$: Observable<File[]>;
 
-  constructor(
-    private afs: AngularFirestore,
-    private auth: AuthService,
-    private serverService: ServerService
-  ) {
+  constructor(private afs: AngularFirestore, private auth: AuthService) {
     this.userFiles$ = this.auth.user$.pipe(
       switchMap(user =>
         this.afs
@@ -52,7 +48,7 @@ export class FileService {
     return this.userFiles$;
   }
 
-  getServerFiles(serverUid: string): Observable<any[]> {
+  getServerFiles(serverUid: string): Observable<File[]> {
     return this.auth.user$.pipe(
       switchMap(user =>
         this.afs

@@ -44,6 +44,15 @@
                   <mat-list-item *ngFor="let file of serverFiles$ | async">
                     <mat-icon matListIcon>description</mat-icon>
                     <a matLine href="{{ file.downloadUrl }}">{{ file.name }}</a>
+                    <div fxFlex></div>
+                    <button
+                      mat-icon-button
+                      matTooltip="Delete file"
+                      matTooltipPosition="left"
+                      (click)="deleteFile(file.uid)"
+                    >
+                      <mat-icon>delete</mat-icon>
+                    </button>
                   </mat-list-item>
                 </mat-list>
               </div>

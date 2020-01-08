@@ -97,4 +97,8 @@ export class ServerDetailComponent implements OnInit, OnDestroy {
       )
       .subscribe();
   }
+
+  deleteFile(uid: string) {
+    this.fileService.deleteFile(uid);
+  }
 }
