@@ -34,7 +34,7 @@
               </div>
               <progress max="100" [value]="uploadProgress | async"></progress>
               <div class="result" *ngIf="downloadUrl | async; else notUploaded">
-                <a [href]="downloadUrl">You just uploaded this file!</a>
+                <a [href]="newUrl">You just uploaded this file!</a>
               </div>
               <ng-template #notUploaded><br /></ng-template>
               <br />

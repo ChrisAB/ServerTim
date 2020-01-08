@@ -25,6 +25,7 @@ export class ServerDetailComponent implements OnInit, OnDestroy {
   private serverFiles$: Observable<any[]>;
   private selectedFile;
   fileSelected: boolean;
+  private newUrl: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -63,6 +64,7 @@ export class ServerDetailComponent implements OnInit, OnDestroy {
   }
 
   uploadFile() {
+    this.newUrl = '';
     const fileId = this.afs.createId();
     this.ref = this.afStorage.ref(fileId);
     this.task = this.ref.put(this.selectedFile);
@@ -78,6 +80,7 @@ export class ServerDetailComponent implements OnInit, OnDestroy {
               take(1)
             )
             .subscribe(url => {
+              this.newUrl = url;
               this.auth.user$
                 .pipe(
                   filter(userData => userData !== null),
