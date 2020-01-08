@@ -5,9 +5,11 @@
   </mat-card-header>
   <mat-divider></mat-divider>
   <mat-card-content>
-    <p>Uptime: 23h 14m</p>
-    <p>Memory usage: 45%</p>
-    <p>CPU usage: 35%</p>
+    <p *ngIf="isOnline" style="color: greenyellow;">Online</p>
+    <p *ngIf="!isOnline" style="color: red">Offline</p>
+    <p>Disk usage: {{usageDisk}}</p>
+    <p>CPU usage: {{usageCPU}}</p>
+    <p>GPU usage: {{usageGPU}}</p>
   </mat-card-content>
   <mat-card-actions>
     <button mat-raised-button routerLink="/servers/{{ uid }}" color="primary">

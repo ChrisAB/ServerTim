@@ -7,7 +7,7 @@ import {
 } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
 import { switchMap, catchError, mergeMap, take } from 'rxjs/operators';
-import { Server } from './server.model';
+import { Server, ServerUsage } from './server.model';
 import { FileService } from './file.service';
 
 @Injectable({ providedIn: 'root' })
@@ -51,6 +51,14 @@ export class ServerService {
       return this.afs.doc<Server>(`servers/${serverUid}`).valueChanges();
     } else {
       return of(null);
+    }
+  }
+
+  getServerUsage(serverUid: string) {
+    if (serverUid) {
+      return this.afs.doc<ServerUsage>(`servers/${serverUid}`).collection('serverUsage').doc('0').valueChanges();
+    } else {
+      return of(null)
     }
   }
 

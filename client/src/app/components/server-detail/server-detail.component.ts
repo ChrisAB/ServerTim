@@ -2,11 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, Observable, concat, of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { Server } from 'src/app/services/server.model';
+import { Server, ServerUsage } from 'src/app/services/server.model';
 import { switchMap, map, finalize, filter, take } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { FileService } from 'src/app/services/file.service';
+import * as CanvasJS from 'src/assets/canvasjs.min';
 
 @Component({
   selector: 'app-server-detail',
@@ -26,6 +27,7 @@ export class ServerDetailComponent implements OnInit, OnDestroy {
   private selectedFile;
   fileSelected: boolean;
   private newUrl: string;
+  private serverUsage: [ServerUsage];
 
   constructor(
     private route: ActivatedRoute,
@@ -50,10 +52,50 @@ export class ServerDetailComponent implements OnInit, OnDestroy {
       this.serverUid = params.id;
       this.serverFiles$ = this.fileService.getServerFiles(this.serverUid);
     });
+    this.getServerUsageData().then(data => setTimeout(() => {
+      this.prepareChartData(data);
+    }, 1000));
   }
 
   ngOnDestroy() {
     this.routeSubscription.unsubscribe();
+  }
+
+  async getServerUsageData() {
+    const snapshot = await this.afs.firestore.collection('servers').doc(`${this.serverUid}`).collection('serverUsage').get();
+    return snapshot.docs.map(doc => doc.data());
+  }
+
+  prepareChartData(data) {
+    let CPUData = [];
+    let GPUData = [];
+    let DiskData = [];
+    for(let i=0;i<data.length;i++) {
+      CPUData.push({y: data[i].CPU});
+      GPUData.push({y: data[i].GPU});
+      DiskData.push({y: data[i].GPU});
+    }
+    this.displayChart(CPUData, "CPUchartContainer", "CPU Usage");
+    this.displayChart(GPUData, "GPUchartContainer", "GPU Usage");
+    this.displayChart(DiskData, "DiskchartContainer", "Disk Usage");
+  }
+
+  displayChart(chartDataPoints, chartId, chartTitle) {
+    let chart = new CanvasJS.Chart(chartId , {
+      zoomEnabled: true,
+      animationEnabled: true,
+      exportEnabled: true,
+      title: {
+        text: chartTitle
+      },
+      data: [
+      {
+        type: "line",                
+        dataPoints: chartDataPoints
+      }]
+    });
+      
+    chart.render();
   }
 
   selectFile(event) {

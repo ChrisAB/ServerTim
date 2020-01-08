@@ -22,6 +22,16 @@ exports.serverCreated = functions.firestore
         newServer.address +
         ' was just created!'
     );
-
-    return Promise.resolve(0);
+    var batch = admin.firestore().batch();
+    var serverRef = admin.firestore().doc('servers/' + newServer.uid).collection('serverUsage');
+    for(i=0;i<20;i++) {
+      docRef = serverRef.doc(i.toString());
+      batch.set(docRef, {
+        Running: true,
+        CPU: Math.random()*100,
+        GPU: Math.random()*100,
+        Disk: Math.random()*100
+      });
+    }
+    return batch.commit();
   });

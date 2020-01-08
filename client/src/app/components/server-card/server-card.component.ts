@@ -10,9 +10,20 @@ export class ServerCardComponent implements OnInit {
   @Input() address: string;
   @Input() displayName: string;
   @Input() uid: string;
+  usageCPU: number;
+  usageGPU: number;
+  usageDisk: number;
+  isOnline: Boolean;
   constructor(private serverService: ServerService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.serverService.getServerUsage(this.uid).subscribe(serverUsage => {
+      this.usageCPU = serverUsage.CPU.toFixed(2);
+      this.usageGPU = serverUsage.GPU.toFixed(2);
+      this.usageDisk = serverUsage.Disk.toFixed(2);
+      this.isOnline = serverUsage.Running;
+      });
+  }
 
   deleteServer() {
     this.serverService.deleteServer(this.uid);
