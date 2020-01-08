@@ -1,4 +1,4 @@
-<div *ngIf="title$ | async as title; else nonexistent">
+<div *ngIf="title$ | async as title">
   <app-toolbar [title]="title" [targetSideNav]="sidenav"></app-toolbar>
   <mat-sidenav-container>
     <mat-sidenav #sidenav mode="over">

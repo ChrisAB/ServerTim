@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <div *ngIf="auth.user$ | async as user; else notLoggedIn">
+  <div *ngIf="auth.user$ | async as user">
     <button mat-flat-button (click)="targetSideNav.toggle()" color="primary">
       <mat-icon>menu</mat-icon>
     </button>

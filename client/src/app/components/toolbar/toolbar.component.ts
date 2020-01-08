@@ -16,7 +16,7 @@ export class ToolbarComponent implements OnInit {
   returnUrl: string;
   loading = false;
   constructor(
-    private auth: AuthService,
+    public auth: AuthService,
     private route: ActivatedRoute,
     private router: Router,
     private iconRegistry: MatIconRegistry,
