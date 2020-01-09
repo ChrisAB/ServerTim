@@ -2,6 +2,10 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+
+// YES, THIS IS REALLY WRONG - NEVER DO THIS
+// I DELETED THE FIREBASE PROJECT AFTER, I SWEAR
+// SUE ME
 export const environment = {
   production: false,
   firebaseConfig: {

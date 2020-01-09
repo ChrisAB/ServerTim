@@ -1,3 +1,6 @@
+// YES, THIS IS REALLY WRONG - NEVER DO THIS
+// I DELETED THE FIREBASE PROJECT AFTER, I SWEAR
+// SUE ME
 export const environment = {
   production: true,
   firebaseConfig: {
